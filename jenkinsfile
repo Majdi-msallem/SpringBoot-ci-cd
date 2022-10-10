@@ -1,0 +1,49 @@
+properties([pipelineTriggers([githubPush()])])
+pipeline{
+    agent any 
+    
+    environment {
+    registry = "majdimsallem/tpachatproject"
+        registryCredential='dockerhub'
+        dockerImage=''
+    }
+    
+        stages {
+            stage ('Hello') {
+                steps {
+                    echo 'Hello World '
+                }
+            }
+            stage('Checkout GIT ') {
+                steps {
+                    echo 'Pulling ...';
+                    git branch : 'master',
+                    url : 'https://github.com/Majdi-msallem/Spring-test.git';
+                }
+            }
+       
+         
+         stage('Building our image') { 
+            steps { 
+                script { 
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER" 
+                }
+            } 
+        }
+        stage('Deploy our image') { 
+            steps { 
+                script { 
+                    docker.withRegistry( '', registryCredential ) { 
+                        dockerImage.push() 
+                    }
+                } 
+            }
+        } 
+        stage('Cleaning up') { 
+            steps { 
+                sh "docker rmi $registry:$BUILD_NUMBER" 
+            }
+        } 
+            
+        }
+}
