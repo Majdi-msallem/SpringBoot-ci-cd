@@ -21,7 +21,7 @@ pipeline{
             }
         stage('git clone') {
             steps {
-               git branch: 'master', url: 'https://github.com/Majdi-msallem/Spring-test.git'
+               git branch: 'master', url: 'https://github.com/Majdi-msallem/SpringBoot-ci-cd.git'
             }
         }
         
