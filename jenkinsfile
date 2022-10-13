@@ -22,9 +22,10 @@ pipeline{
             stages {
         stage('git clone') {
             steps {
-               git branch: 'main', url: 'https://github.com/Majdi-msallem/Spring-test.git'
+               git branch: 'master', url: 'https://github.com/Majdi-msallem/Spring-test.git'
         
             }
+        }
         }
             stage('MVN CLEAN'){
             steps {
