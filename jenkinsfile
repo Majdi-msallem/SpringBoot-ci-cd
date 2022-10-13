@@ -27,7 +27,7 @@ pipeline{
         
             stage('MVN CLEAN'){
             steps {
-                sh 'mvn clean -X -e'
+                sh 'mvn clean'
             }
         }
              stage('MVN INSTALL') {
